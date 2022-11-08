@@ -8,3 +8,9 @@
 <script src="../dist/js/pages/dashboard.js"></script>
 </body>
 </html>
+
+<script>
+    $(document).ready(function(){
+        
+    });
+</script>
