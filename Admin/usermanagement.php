@@ -27,10 +27,15 @@
       $USERNAME = $crudapi->escape_string($_POST['USERNAME']);
       $PASSWORD = $crudapi->escape_string($_POST['PASSWORD']);
       $ROLE_ID = $crudapi->escape_string($_POST['ROLE_ID']);
+      $USER_ID = $crudapi->escape_string($_POST['USER_ID']);
         
-      $result = $crudapi->execute("UPDATE users SET ROLE_ID='$ROLE_ID',FNAME='$FNAME',LNAME='$LNAME',ADDRESS='$ADDRESS',CONTACT='$CONTACT',USERNAME='$USERNAME',PASSWORD='$PASSWORD' WHERE ID = ");
+      $result = $crudapi->execute("UPDATE users SET ROLE_ID='$ROLE_ID',FNAME='$FNAME',LNAME='$LNAME',ADDRESS='$ADDRESS',CONTACT='$CONTACT',USERNAME='$USERNAME',PASSWORD='$PASSWORD' WHERE USER_ID = '$USER_ID' ");
 
-      echo '<script>alert("ADDED SUCCESS");</script>';
+      echo '<script>alert("UPDATED SUCCESS");</script>';
+      header("location: usermanagement.php");
+    }else if(isset($_POST['deleteEmployee'])){
+      $result = $crudapi->delete('USER_ID',$_POST['USER_ID'], 'users');
+      echo '<script>alert("DELETED SUCCESS");</script>';
       header("location: usermanagement.php");
     }
 
@@ -83,6 +88,7 @@
               <?php 
                   $query = "SELECT * FROM `users` LEFT JOIN roles ON roles.ID = users.ROLE_ID where users.ROLE_ID != 1";
                   $result = $crudapi->getData($query);
+                  // var_dump($result);
                   $number = 1;
                   foreach ($result as $key => $data) {
               ?>
@@ -95,8 +101,8 @@
                     <td><?php echo $data["USERNAME"] ?></td>
                     <td>
                       <div class="btn-group" role="group" aria-label="Basic example">
-                        <button type="button" data-toggle="modal" data-target="#usersEditModal" data-id="<?php echo $data['ID']; ?>" class="btn btn-primary" id="editbtn">EDIT</button>
-                        <button type="button" data-toggle="modal" data-target="#usersDeleteModal" data-id="<?php echo $data['ID']; ?>" class="btn btn-danger" id="deletebtn">DELETE</button>
+                        <button type="button" data-id="<?php echo $data['USER_ID']; ?>" class="btn btn-primary" id="editbtn">EDIT</button>
+                        <button type="button" data-id="<?php echo $data['USER_ID']; ?>" class="btn btn-danger" id="deletebtn">DELETE</button>
                       </div>
                     </td>
                   </tr>
@@ -181,40 +187,39 @@
             </button>
           </div>
           <div class="modal-body">
-            <form method="POST">
-              <input type="hidden" name="ID" id="ID" value="2">
-              <input type="hidden" name="ROLE_ID" id="ROLE_ID" value="2">
-
+            <form method="POST" id="editemployee">
+              <input type="hidden" name="ROLE_ID" id="ROLE_ID_EDIT" value="2">
+              <input type="hidden" name="USER_ID" id="USER_ID_EDIT">
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label>Firstname</label>
-                  <input type="text" class="form-control" name="FNAME" id="FNAME">
+                  <input type="text" class="form-control" name="FNAME" id="FNAME_EDIT">
                 </div>
                 <div class="form-group col-md-6">
                   <label>Lastname</label>
-                  <input type="text" class="form-control" name="LNAME" id="LNAME">
+                  <input type="text" class="form-control" name="LNAME" id="LNAME_EDIT">
                 </div>
               </div>
 
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label>Address</label>
-                  <input type="text" class="form-control" name="ADDRESS" id="ADDRESS">
+                  <input type="text" class="form-control" name="ADDRESS" id="ADDRESS_EDIT">
                 </div>
                 <div class="form-group col-md-6">
                   <label>Contact</label>
-                  <input type="text" class="form-control" name="CONTACT" id="CONTACT">
+                  <input type="text" class="form-control" name="CONTACT" id="CONTACT_EDIT">
                 </div>
               </div>
 
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label>Username</label>
-                  <input type="text" class="form-control" name="USERNAME" id="USERNAME">
+                  <input type="text" class="form-control" name="USERNAME" id="USERNAME_EDIT">
                 </div>
                 <div class="form-group col-md-6">
                   <label>Password</label>
-                  <input type="password" class="form-control" name="PASSWORD" id="PASSWORD">
+                  <input type="password" class="form-control" name="PASSWORD" id="PASSWORD_EDIT">
                 </div>
               </div>
 
@@ -244,7 +249,7 @@
           </div>
           <div class="modal-body">
             <form method="POST">
-              <input type="hidden" name="ROLE_ID" id="ROLE_ID" value="2">
+              <input type="hidden" name="USER_ID" id="USER_ID_DELETE">
               <p>ARE YOU SURE YOU WANT TO DELETE THIS EMPLOYEE?</p>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -263,12 +268,8 @@
     
 
   </div>
+  
   <?php include("layouts/footer.php");?>
 </div>
 <?php include("layouts/scripts.php");?>
-
-<script>
-  $( window ).load(function() {
-    alert("asdasd");
-  });
-</script>
+<script src="js/usermanagement.js"></script>
