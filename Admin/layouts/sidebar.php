@@ -39,6 +39,14 @@
             </a>
           </li>
           <li class="nav-item">
+            <a href="customers.php" class="nav-link">
+              <i class="nav-icon fas fa-users-cog"></i>
+              <p>
+               Customers
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="parkingslot.php" class="nav-link">
               <i class="nav-icon fas fa-parking"></i>
               <p>
@@ -63,22 +71,7 @@
               </p>
             </a>
           </li>
-           <li class="nav-item">
-            <a href="usergroup.php" class="nav-link">
-              <i class="nav-icon fas fa-users"></i>
-              <p>
-               User Group
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="../index.php" class="nav-link">
-              <i class="nav-icon fas fa-power-off"></i>
-              <p>
-                Logout
-              </p>
-            </a>
-          </li>
+
 
         </ul>
       </nav>
