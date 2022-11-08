@@ -48,7 +48,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Parking Slot</h1>
+            <h1 class="m-0">User Management</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -71,22 +71,30 @@
               <thead class="thead-dark">
                 <tr>
                   <th scope="col">#</th>
-                  <th scope="col">PARKING NAME</th>
-                  <th scope="col">DESCRIPTION</th>
+                  <th scope="col">PARKING_SLOT_ID</th>
+                  <th scope="col">CUSTOMER_ID</th>
+                  <th scope="col">PLATE_NUMBER</th>
+                  <th scope="col">PARKING_TIME</th>
+                  <th scope="col">PARKING_TIME_OUT</th>
+                  <th scope="col">PAYMENT</th>
                   <th scope="col">ACTION</th>
                 </tr>
               </thead>
               <tbody>
               <?php 
-                  $query = "SELECT * FROM `parking_slot`";
+                  $query = "SELECT * FROM `parking_logs`";
                   $result = $crudapi->getData($query);
                   $number = 1;
                   foreach ($result as $key => $data) {
               ?>
                   <tr>
                     <th scope="row"><?php echo $number; ?></th>
-                    <td><?php echo $data["PARKING_NAME"] ?></td>
-                    <td><?php echo $data["DESCRIPTION"]; ?></td>
+                    <td><?php echo $data["PARKING_SLOT_ID"] ?></td>
+                    <td><?php echo $data["CUSTOMER_ID"] ?></td>
+                    <td><?php echo $data["PLATE_NUMBER"] ?></td>
+                    <td><?php echo $data["PARKING_TIME"] ?></td>
+                    <td><?php echo $data["PARKING_TIME_OUT"] ?></td>
+                    <td><?php echo $data["PAYMENT"] ?></td>
                     <td>
                       <div class="btn-group" role="group" aria-label="Basic example">
                         <button type="button" data-toggle="modal" data-target="#usersEditModal" data-id="<?php echo $data['ID']; ?>" class="btn btn-primary" id="editbtn">EDIT</button>
@@ -108,7 +116,7 @@
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Add New Slot</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Add New Parking Logs</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -116,19 +124,16 @@
           <div class="modal-body">
             <form method="POST">
               <input type="hidden" name="ID" id="ID">
-
               <div class="form-row">
                 <div class="form-group col-md-6">
-                  <label>PARKING NAME</label>
-                  <input type="text" class="form-control" name="PARKING_NAME" id="PARKING_NAME">
+                  <label>PARKING TIME OUT</label>
+                  <input type="date" class="form-control" name="PARKING_TIME_OUT" id="PARKING_TIME_OUT">
                 </div>
                 <div class="form-group col-md-6">
-                  <label>DESCRIPTION</label>
-                  <input type="text" class="form-control" name="DESCRIPTION" id="DESCRIPTION">
+                  <label>PAYMENT</label>
+                  <input type="number" class="form-control" name="PAYMENT" id="PAYMENT">
                 </div>
               </div>
-
-             
 
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -149,30 +154,27 @@
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Edit Slot</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Edit Parking Logs</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
             <form method="POST">
-              <input type="hidden" name="ID" id="ID" >
-             
-
+             <input type="hidden" name="ID" id="ID">
+              <input type="hidden" name="PARKING_SLOT_ID" id="PARKING_SLOT_ID">
+              <input type="hidden"  name="CUSTOMER_ID" id="CUSTOMER_ID">
+              
               <div class="form-row">
                 <div class="form-group col-md-6">
-                  <label>Firstname</label>
-                  <input type="text" class="form-control" name="PARKING_NAME" id="PARKING_NAME">
+                  <label>PARKING TIME OUT</label>
+                  <input type="date" class="form-control" name="PARKING_TIME_OUT" id="PARKING_TIME_OUT">1 PARKING_SLOT_ID 2 CUSTOMER_ID 3PLATE_NUMBER 4 PARKING_TIME_OUT 5 PAYMENT
                 </div>
                 <div class="form-group col-md-6">
-                  <label>Lastname</label>
-                  <input type="text" class="form-control" name="DESCRIPTION" id="DESCRIPTION">
+                  <label>PAYMENT</label>
+                  <input type="number" class="form-control" name="PAYMENT" id="PAYMENT">
                 </div>
               </div>
-
-             
-
-            
 
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -193,7 +195,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Delete Slot</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Delete Parking Logs</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -201,7 +203,7 @@
           <div class="modal-body">
             <form method="POST">
               <input type="hidden" name="ID" id="ID">
-              <p>ARE YOU SURE YOU WANT TO DELETE THIS SLOT?</p>
+              <p>ARE YOU SURE YOU WANT TO DELETE THIS PARKING LOGS?</p>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary" name="deleteEmployee">Delete</button>
