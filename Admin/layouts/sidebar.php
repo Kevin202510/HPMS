@@ -39,36 +39,6 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-car"></i>
-              <p>
-                Vehicle
-                <i class="fas fa-angle-left right"></i>
-                <span class="badge badge-info right"></span>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="owenermanagement.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Owner Management Form</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="category.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Category</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="informationmanagement.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Information Management</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item">
             <a href="parkingslot.php" class="nav-link">
               <i class="nav-icon fas fa-parking"></i>
               <p>
@@ -76,6 +46,15 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="parkinglogs.php" class="nav-link">
+              <i class="nav-icon fas fa-parking"></i>
+              <p>
+                Parking Logs
+              </p>
+            </a>
+          </li>
+        
           <li class="nav-item">
             <a href="payment.php" class="nav-link">
               <i class="nav-icon fas fa-money-bill-alt"></i>
