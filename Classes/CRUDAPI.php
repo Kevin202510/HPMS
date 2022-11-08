@@ -38,9 +38,9 @@ class CRUDAPI extends CONFIGDB
 		}		
 	}
 	
-	public function delete($id, $table) 
+	public function delete($colname,$id, $table) 
 	{ 
-		$query = "DELETE FROM $table WHERE id = $id";
+		$query = "DELETE FROM $table WHERE $colname = $id";
 		
 		$result = $this->connection->query($query);
 	
