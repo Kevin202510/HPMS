@@ -11,6 +11,14 @@
 
 <script>
     $(document).ready(function(){
-        
+        let url = window.location.href;
+        let newurl = url.substr(28);
+        if(newurl==="usermanagement.php"){
+            $("#usersidebtn").addClass("active");
+        }else if(newurl==="parkingslot.php"){
+            $("#pssidebtn").addClass("active");
+        }else if(newurl==="parkinglogs.php"){
+            $("#plsidebtn").addClass("active");
+        }
     });
 </script>

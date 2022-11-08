@@ -31,7 +31,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="usermanagement.php" class="nav-link">
+            <a href="usermanagement.php" class="nav-link" id="usersidebtn">
               <i class="nav-icon fas fa-users-cog"></i>
               <p>
                User Management
@@ -39,7 +39,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="parkingslot.php" class="nav-link">
+            <a href="parkingslot.php" class="nav-link" id="pssidebtn">
               <i class="nav-icon fas fa-parking"></i>
               <p>
                 Parking Slot
@@ -47,7 +47,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="parkinglogs.php" class="nav-link">
+            <a href="parkinglogs.php" class="nav-link" id="plsidebtn">
               <i class="nav-icon fas fa-parking"></i>
               <p>
                 Parking Logs

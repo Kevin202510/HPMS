@@ -4,34 +4,29 @@
     include_once("../Classes/CRUDAPI.php");
     $crudapi = new CRUDAPI();
 
-    if(isset($_POST['addNewEmployee'])) {	
+    if(isset($_POST['addNewPS'])) {	
 
-      $FNAME = $crudapi->escape_string($_POST['FNAME']);
-      $LNAME = $crudapi->escape_string($_POST['LNAME']);
-      $ADDRESS = $crudapi->escape_string($_POST['ADDRESS']);
-      $CONTACT = $crudapi->escape_string($_POST['CONTACT']);
-      $USERNAME = $crudapi->escape_string($_POST['USERNAME']);
-      $PASSWORD = $crudapi->escape_string($_POST['PASSWORD']);
-      $ROLE_ID = $crudapi->escape_string($_POST['ROLE_ID']);
+      $PARKING_NAME = $crudapi->escape_string($_POST['PARKING_NAME']);
+      $DESCRIPTION = $crudapi->escape_string($_POST['DESCRIPTION']);
         
-      $result = $crudapi->execute("INSERT INTO users(ROLE_ID,FNAME,LNAME,ADDRESS,CONTACT,USERNAME,PASSWORD) VALUES('$ROLE_ID','$FNAME','$LNAME','$ADDRESS','$CONTACT','$USERNAME','$PASSWORD')");
+      $result = $crudapi->execute("INSERT INTO parking_slot(PARKING_NAME,DESCRIPTION) VALUES('$PARKING_NAME','$DESCRIPTION')");
 
       echo '<script>alert("ADDED SUCCESS");</script>';
-      header("location: usermanagement.php");
-    }else if(isset($_POST['editEmployee'])) {	
+      header("location: parkingslot.php");
+    }else if(isset($_POST['editPS'])) {	
 
-      $FNAME = $crudapi->escape_string($_POST['FNAME']);
-      $LNAME = $crudapi->escape_string($_POST['LNAME']);
-      $ADDRESS = $crudapi->escape_string($_POST['ADDRESS']);
-      $CONTACT = $crudapi->escape_string($_POST['CONTACT']);
-      $USERNAME = $crudapi->escape_string($_POST['USERNAME']);
-      $PASSWORD = $crudapi->escape_string($_POST['PASSWORD']);
-      $ROLE_ID = $crudapi->escape_string($_POST['ROLE_ID']);
+      $PARKING_NAME = $crudapi->escape_string($_POST['PARKING_NAME']);
+      $DESCRIPTION = $crudapi->escape_string($_POST['DESCRIPTION']);
+      $PS_ID = $crudapi->escape_string($_POST['PS_ID']);
         
-      $result = $crudapi->execute("UPDATE users SET ROLE_ID='$ROLE_ID',FNAME='$FNAME',LNAME='$LNAME',ADDRESS='$ADDRESS',CONTACT='$CONTACT',USERNAME='$USERNAME',PASSWORD='$PASSWORD' WHERE ID = ");
+      $result = $crudapi->execute("UPDATE parking_slot SET PARKING_NAME='$PARKING_NAME',DESCRIPTION='$DESCRIPTION' WHERE PS_ID = '$PS_ID' ");
 
       echo '<script>alert("ADDED SUCCESS");</script>';
-      header("location: usermanagement.php");
+      header("location: parkingslot.php");
+    }else if(isset($_POST['deletePS'])){
+      $result = $crudapi->delete('PS_ID',$_POST['PS_ID'], 'parking_slot');
+      echo '<script>alert("DELETED SUCCESS");</script>';
+      header("location: parkingslot.php");
     }
 
 
@@ -64,7 +59,7 @@
       <div class="container-fluid">
         <div class="card">
           <div class="card-header">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#usersModal" style="float:right;">ADD</button>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#parkingslotModal" style="float:right;">ADD</button>
           </div>
           <div class="card-body">
             <table class="table">
@@ -89,8 +84,8 @@
                     <td><?php echo $data["DESCRIPTION"]; ?></td>
                     <td>
                       <div class="btn-group" role="group" aria-label="Basic example">
-                        <button type="button" data-toggle="modal" data-target="#usersEditModal" data-id="<?php echo $data['ID']; ?>" class="btn btn-primary" id="editbtn">EDIT</button>
-                        <button type="button" data-toggle="modal" data-target="#usersDeleteModal" data-id="<?php echo $data['ID']; ?>" class="btn btn-danger" id="deletebtn">DELETE</button>
+                        <button type="button" data-id="<?php echo $data['PS_ID']; ?>" class="btn btn-primary" id="editbtn">EDIT</button>
+                        <button type="button" data-id="<?php echo $data['PS_ID']; ?>" class="btn btn-danger" id="deletebtn">DELETE</button>
                       </div>
                     </td>
                   </tr>
@@ -104,7 +99,7 @@
 
     <!-- ADD MODAL -->
 
-    <div class="modal fade" id="usersModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="parkingslotModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -115,7 +110,7 @@
           </div>
           <div class="modal-body">
             <form method="POST">
-              <input type="hidden" name="ID" id="ID">
+              <input type="hidden" name="PS_ID" id="PS_ID">
 
               <div class="form-row">
                 <div class="form-group col-md-6">
@@ -124,7 +119,7 @@
                 </div>
                 <div class="form-group col-md-6">
                   <label>DESCRIPTION</label>
-                  <input type="text" class="form-control" name="DESCRIPTION" id="DESCRIPTION">
+                  <textarea class="form-control" name="DESCRIPTION" id="DESCRIPTION" rows="3"></textarea>
                 </div>
               </div>
 
@@ -132,7 +127,7 @@
 
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" name="addNewEmployee">Save changes</button>
+                <button type="submit" class="btn btn-primary" name="addNewPS">Save changes</button>
               </div>
 
             </form>
@@ -145,7 +140,7 @@
 
     <!-- EDIT MODAL -->
 
-    <div class="modal fade" id="usersEditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="parkingslotEditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -156,17 +151,17 @@
           </div>
           <div class="modal-body">
             <form method="POST">
-              <input type="hidden" name="ID" id="ID" >
+              <input type="hidden" name="PS_ID" id="PS_ID_EDIT" >
              
 
               <div class="form-row">
                 <div class="form-group col-md-6">
-                  <label>Firstname</label>
-                  <input type="text" class="form-control" name="PARKING_NAME" id="PARKING_NAME">
+                  <label>Parking Name</label>
+                  <input type="text" class="form-control" name="PARKING_NAME" id="PARKING_NAME_EDIT">
                 </div>
                 <div class="form-group col-md-6">
-                  <label>Lastname</label>
-                  <input type="text" class="form-control" name="DESCRIPTION" id="DESCRIPTION">
+                  <label>Description</label>
+                  <textarea class="form-control" name="DESCRIPTION" id="DESCRIPTION_EDIT" rows="3"></textarea>
                 </div>
               </div>
 
@@ -176,7 +171,7 @@
 
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" name="editEmployee">Update</button>
+                <button type="submit" class="btn btn-primary" name="editPS">Update</button>
               </div>
 
             </form>
@@ -189,7 +184,7 @@
 
     <!-- DELETE MODAL -->
 
-    <div class="modal fade" id="usersDeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="parkingslotDeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -200,11 +195,11 @@
           </div>
           <div class="modal-body">
             <form method="POST">
-              <input type="hidden" name="ID" id="ID">
+              <input type="hidden" name="PS_ID" id="PS_ID_DELETE">
               <p>ARE YOU SURE YOU WANT TO DELETE THIS SLOT?</p>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" name="deleteEmployee">Delete</button>
+                <button type="submit" class="btn btn-primary" name="deletePS">Delete</button>
               </div>
 
             </form>
@@ -222,9 +217,4 @@
   <?php include("layouts/footer.php");?>
 </div>
 <?php include("layouts/scripts.php");?>
-
-<script>
-  $( window ).load(function() {
-    alert("asdasd");
-  });
-</script>
+<script src="js/parkingslot.js"></script>
