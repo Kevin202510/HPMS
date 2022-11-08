@@ -128,6 +128,7 @@
                 <div class="form-group col-md-6">
                   <label>PARKING TIME OUT</label>
                   <input type="date" class="form-control" name="PARKING_TIME_OUT" id="PARKING_TIME_OUT">
+                </div>
                 <div class="form-group col-md-6">
                   <label>PAYMENT</label>
                   <input type="number" class="form-control" name="PAYMENT" id="PAYMENT">
