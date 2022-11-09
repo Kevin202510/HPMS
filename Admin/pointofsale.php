@@ -83,7 +83,9 @@
                     <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
                     <div class="card-body">
                         <h5 class="card-title"><?php echo $data["PARKING_NAME"] ?></h5>
-                        <p class="card-text"><?php echo $data["DESCRIPTION"] ?></p>
+                        <div class="justify-content-center">
+                          <p class="card-text"><?php echo $data["DESCRIPTION"] ?></p>
+                        </div>
                     </div>
                     <div class="card-footer text-muted d-flex justify-content-center">
                         <button type="button" class="btn btn-primary btn-sm" id="park" data-id="<?php echo $data["PS_ID"] ?>">Park</button>
@@ -94,7 +96,9 @@
                     <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
                     <div class="card-body">
                         <h5 class="card-title"><?php echo $data["PARKING_NAME"] ?></h5>
-                        <p class="card-text"><?php echo $data["DESCRIPTION"] ?></p>
+                        <div class="justify-content-center">
+                          <p class="card-text"><?php echo $data["DESCRIPTION"] ?></p>
+                        </div>
                     </div>
                     <div class="card-footer text-muted d-flex justify-content-center">
                         <p>Not Available</p>
