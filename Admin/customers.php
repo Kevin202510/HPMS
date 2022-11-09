@@ -4,34 +4,28 @@
     include_once("../Classes/CRUDAPI.php");
     $crudapi = new CRUDAPI();
 
-    if(isset($_POST['addNewEmployee'])) {	
+    if(isset($_POST['addNewCustomer'])) {	
 
-      $FNAME = $crudapi->escape_string($_POST['FNAME']);
-      $LNAME = $crudapi->escape_string($_POST['LNAME']);
-      $ADDRESS = $crudapi->escape_string($_POST['ADDRESS']);
-      $CONTACT = $crudapi->escape_string($_POST['CONTACT']);
-      $USERNAME = $crudapi->escape_string($_POST['USERNAME']);
-      $PASSWORD = $crudapi->escape_string($_POST['PASSWORD']);
-      $ROLE_ID = $crudapi->escape_string($_POST['ROLE_ID']);
-        
-      $result = $crudapi->execute("INSERT INTO users(ROLE_ID,FNAME,LNAME,ADDRESS,CONTACT,USERNAME,PASSWORD) VALUES('$ROLE_ID','$FNAME','$LNAME','$ADDRESS','$CONTACT','$USERNAME','$PASSWORD')");
+      $C_FNAME = $crudapi->escape_string($_POST['C_FNAME']);
+      $C_LNAME = $crudapi->escape_string($_POST['C_LNAME']);
+      $result = $crudapi->execute("INSERT INTO customers(C_FNAME,C_LNAME) VALUES('$C_FNAME','$C_LNAME')");
 
       echo '<script>alert("ADDED SUCCESS");</script>';
-      header("location: usermanagement.php");
-    }else if(isset($_POST['editEmployee'])) {	
-
-      $FNAME = $crudapi->escape_string($_POST['FNAME']);
-      $LNAME = $crudapi->escape_string($_POST['LNAME']);
-      $ADDRESS = $crudapi->escape_string($_POST['ADDRESS']);
-      $CONTACT = $crudapi->escape_string($_POST['CONTACT']);
-      $USERNAME = $crudapi->escape_string($_POST['USERNAME']);
-      $PASSWORD = $crudapi->escape_string($_POST['PASSWORD']);
-      $ROLE_ID = $crudapi->escape_string($_POST['ROLE_ID']);
-        
-      $result = $crudapi->execute("UPDATE users SET ROLE_ID='$ROLE_ID',FNAME='$FNAME',LNAME='$LNAME',ADDRESS='$ADDRESS',CONTACT='$CONTACT',USERNAME='$USERNAME',PASSWORD='$PASSWORD' WHERE ID = ");
+      header("location: customers.php");
+    }else if(isset($_POST['editCustomer'])) {	
+      
+      $CID = $crudapi->escape_string($_POST['CID']);
+      $C_FNAME = $crudapi->escape_string($_POST['C_FNAME']);
+      $C_LNAME = $crudapi->escape_string($_POST['C_LNAME']);
+      $result = $crudapi->execute("UPDATE customers SET C_FNAME='$C_FNAME',C_LNAME='$C_LNAME'WHERE CID = '$CID' ");
 
       echo '<script>alert("ADDED SUCCESS");</script>';
-      header("location: usermanagement.php");
+      header("location: customers.php");
+
+    }else if(isset($_POST['deleteCustomer'])){
+      $result = $crudapi->delete('CID',$_POST['CID'], 'customers');
+      echo '<script>alert("DELETED SUCCESS");</script>';
+      header("location: customers.php");
     }
 
 
@@ -89,9 +83,9 @@
                     <td><?php echo $data["C_LNAME"] ?></td>
                    
                     <td>
-                      <div class="btn-group" role="group" aria-label="Basic example">
-                        <button type="button" data-toggle="modal" data-target="#usersEditModal" data-id="<?php echo $data['CID']; ?>" class="btn btn-primary" id="editbtn">EDIT</button>
-                        <button type="button" data-toggle="modal" data-target="#usersDeleteModal" data-id="<?php echo $data['CID']; ?>" class="btn btn-danger" id="deletebtn">DELETE</button>
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button type="button" data-id="<?php echo $data['CID']; ?>" class="btn btn-primary" id="editbtn">EDIT</button>
+                        <button type="button" data-id="<?php echo $data['CID']; ?>" class="btn btn-danger" id="deletebtn">DELETE</button>
                       </div>
                     </td>
                   </tr>
@@ -119,18 +113,18 @@
               <input type="hidden" name="CID" id="CID">
               <div class="form-row">
                 <div class="form-group col-md-6">
-                  <label>PARKING TIME OUT</label>
+                  <label>Customer First Name</label>
                   <input type="text" class="form-control" name="C_FNAME" id="C_FNAME">
                 </div>
                 <div class="form-group col-md-6">
-                  <label>PAYMENT</label>
+                  <label>Customert Last Name</label>
                   <input type="text" class="form-control" name="C_LNAME" id="C_LNAME">
                 </div>
               </div>
 
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" name="addNewEmployee">Save changes</button>
+                <button type="submit" class="btn btn-primary" name="addNewCustomer">Save changes</button>
               </div>
 
             </form>
@@ -143,7 +137,7 @@
 
     <!-- EDIT MODAL -->
 
-    <div class="modal fade" id="usersEditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="CustomerEditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -152,28 +146,24 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">
+            <div class="modal-body">
             <form method="POST">
-             <input type="hidden" name="CID" id="CID">     
-
-               <div class="modal-body">
-            <form method="POST">
-              <input type="hidden" name="CID" id="CID">
+              <input type="hidden" name="CID" id="CID_EDIT">
               <div class="form-row">
                 <div class="form-group col-md-6">
-                  <label>PARKING TIME OUT</label>
-                  <input type="text" class="form-control" name="C_FNAME" id="C_FNAME">
+                  <label>Customer First Name</label>
+                  <input type="text" class="form-control" name="C_FNAME" id="C_FNAME_EDIT">
                 </div>
                 </div>
                 <div class="form-group col-md-6">
-                  <label>PAYMENT</label>
-                  <input type="text" class="form-control" name="C_LNAME" id="C_LNAME">
+                  <label>Customer Last Name</label>
+                  <input type="text" class="form-control" name="C_LNAME" id="C_LNAME_EDIT">
                 </div>
               </div>
 
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" name="editEmployee">Update</button>
+                <button type="submit" class="btn btn-primary" name="editCustomer">Update</button>
               </div>
 
             </form>
@@ -186,7 +176,7 @@
 
     <!-- DELETE MODAL -->
 
-    <div class="modal fade" id="usersDeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="CustomerDeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -197,11 +187,11 @@
           </div>
           <div class="modal-body">
             <form method="POST">
-              <input type="hidden" name="CID" id="CID">
+              <input type="hidden" name="CID" id="CID_Delit">
               <p>ARE YOU SURE YOU WANT TO DELETE THIS customer?</p>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" name="deleteEmployee">Delete</button>
+                <button type="submit" class="btn btn-primary" name="deleteCustomer">Delete</button>
               </div>
 
             </form>
@@ -219,9 +209,4 @@
   <?php include("layouts/footer.php");?>
 </div>
 <?php include("layouts/scripts.php");?>
-
-<script>
-  $( window ).load(function() {
-    alert("asdasd");
-  });
-</script>
+<script src="js/customers.js"></script>
