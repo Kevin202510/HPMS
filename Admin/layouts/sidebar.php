@@ -72,6 +72,15 @@
             </a>
           </li>
 
+          <li class="nav-item">
+            <a href="pointofsale.php" class="nav-link">
+              <i class="nav-icon fas fa-money-bill-alt"></i>
+              <p>
+               Point Of Sale
+              </p>
+            </a>
+          </li>
+
 
         </ul>
       </nav>
