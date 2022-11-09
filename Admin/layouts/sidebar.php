@@ -23,7 +23,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item menu-open">
-            <a href="dashboard.php" class="nav-link">
+            <a href="index.php" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
@@ -35,14 +35,6 @@
               <i class="nav-icon fas fa-users-cog"></i>
               <p>
                User Management
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="customers.php" class="nav-link">
-              <i class="nav-icon fas fa-users-cog"></i>
-              <p>
-               Customers
               </p>
             </a>
           </li>
@@ -63,15 +55,6 @@
             </a>
           </li>
         
-          <li class="nav-item">
-            <a href="payment.php" class="nav-link">
-              <i class="nav-icon fas fa-money-bill-alt"></i>
-              <p>
-               Payment
-              </p>
-            </a>
-          </li>
-
           <li class="nav-item">
             <a href="pointofsale.php" class="nav-link">
               <i class="nav-icon fas fa-money-bill-alt"></i>

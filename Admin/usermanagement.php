@@ -95,8 +95,8 @@
                   <tr>
                     <th scope="row"><?php echo $number; ?></th>
                     <td><?php echo $data["ROLENAME"] ?></td>
-                    <td><?php echo $data["FNAME"]." ".$data["LNAME"]; ?></td>
-                    <td><?php echo $data["ADDRESS"] ?></td>
+                    <td><?php echo strtoupper($data["FNAME"]." ".$data["LNAME"]); ?></td>
+                    <td><?php echo strtoupper($data["ADDRESS"]) ?></td>
                     <td><?php echo $data["CONTACT"] ?></td>
                     <td><?php echo $data["USERNAME"] ?></td>
                     <td>

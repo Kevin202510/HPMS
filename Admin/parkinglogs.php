@@ -48,7 +48,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">User Management</h1>
+            <h1 class="m-0">Parking Logs Management</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -64,43 +64,45 @@
       <div class="container-fluid">
         <div class="card">
           <div class="card-header">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#usersModal" style="float:right;">ADD</button>
+            
           </div>
           <div class="card-body">
             <table class="table">
               <thead class="thead-dark">
                 <tr>
                   <th scope="col">#</th>
-                  <th scope="col">PARKING_SLOT_ID</th>
-                  <th scope="col">CUSTOMER_ID</th>
-                  <th scope="col">PLATE_NUMBER</th>
-                  <th scope="col">PARKING_TIME</th>
-                  <th scope="col">PARKING_TIME_OUT</th>
+                  <th scope="col">PARKING SLOT</th>
+                  <th scope="col">CUSTOMER FULLNAME</th>
+                  <th scope="col">PLATE NUMBER</th>
+                  <th scope="col">PARKING TIME</th>
+                  <th scope="col">PARKING TIME OUT</th>
                   <th scope="col">PAYMENT</th>
-                  <th scope="col">ACTION</th>
+                  <th scope="col">STATUS</th>
                 </tr>
               </thead>
               <tbody>
               <?php 
-                  $query = "SELECT * FROM `parking_logs`";
+                  $query = "SELECT * FROM `parking_logs` LEFT JOIN parking_slot ON parking_slot.PS_ID = parking_logs.PARKING_SLOT_ID";
                   $result = $crudapi->getData($query);
                   $number = 1;
                   foreach ($result as $key => $data) {
               ?>
                   <tr>
                     <th scope="row"><?php echo $number; ?></th>
-                    <td><?php echo $data["PARKING_SLOT_ID"] ?></td>
-                    <td><?php echo $data["CUSTOMER_ID"] ?></td>
+                    <td><?php echo $data["PARKING_NAME"] ?></td>
+                    <td><?php echo $data["C_FNAME"]." ".$data["C_LNAME"] ?></td>
                     <td><?php echo $data["PLATE_NUMBER"] ?></td>
-                    <td><?php echo $data["PARKING_TIME"] ?></td>
-                    <td><?php echo $data["PARKING_TIME_OUT"] ?></td>
+                    <td><?php echo date_format(date_create($data["PARKING_TIME"]),"M-d-y H:i:s A"); ?></td>
+                    <td><?php echo date_format(date_create($data["PARKING_TIME_OUT"]),"M-d-y H:i:s A") ?></td>
                     <td><?php echo $data["PAYMENT"] ?></td>
-                    <td>
-                      <div class="btn-group" role="group" aria-label="Basic example">
-                        <button type="button" data-toggle="modal" data-target="#usersEditModal" data-id="<?php echo $data['ID']; ?>" class="btn btn-primary" id="editbtn">EDIT</button>
-                        <button type="button" data-toggle="modal" data-target="#usersDeleteModal" data-id="<?php echo $data['ID']; ?>" class="btn btn-danger" id="deletebtn">DELETE</button>
-                      </div>
-                    </td>
+                    <?php 
+                        $val = "Paid";
+                        if($data["PL_STATUS"]==1){
+                    ?>
+                    <td><p style="color:red;"><?php echo $val; ?></p></td>
+                    <?php }else{?>
+                    <td><p style="color:green;"><?php echo $val; ?></p></td>
+                    <?php }?>
                   </tr>
                 <?php $number++; } ?>
               </tbody>
