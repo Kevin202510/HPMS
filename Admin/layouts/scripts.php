@@ -19,6 +19,10 @@
             $("#pssidebtn").addClass("active");
         }else if(newurl==="parkinglogs.php"){
             $("#plsidebtn").addClass("active");
+        }else if(newurl==="pointofsale.php"){
+            $("#possidebtn").addClass("active");
+        }else if(newurl==="index.php"){
+            $("#dashsidebtn").addClass("active");
         }
     });
 </script>

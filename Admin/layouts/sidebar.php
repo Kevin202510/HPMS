@@ -22,8 +22,8 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item menu-open">
-            <a href="index.php" class="nav-link">
+          <li class="nav-item">
+            <a href="index.php" class="nav-link" id="dashsidebtn">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
@@ -39,7 +39,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="parkingslot.php" class="nav-link">
+            <a href="parkingslot.php" class="nav-link" id="pssidebtn">
               <i class="nav-icon fas fa-parking"></i>
               <p>
                 Parking Slot
@@ -48,7 +48,7 @@
           </li>
           <li class="nav-item">
             <a href="parkinglogs.php" class="nav-link" id="plsidebtn">
-              <i class="nav-icon fas fa-parking"></i>
+              <i class="nav-icon fas fa-file-alt"></i>
               <p>
                 Parking Logs
               </p>
@@ -56,8 +56,8 @@
           </li>
         
           <li class="nav-item">
-            <a href="pointofsale.php" class="nav-link">
-              <i class="nav-icon fas fa-money-bill-alt"></i>
+            <a href="pointofsale.php" class="nav-link" id="possidebtn">
+              <i class="nav-icon fas fa-vote-yea"></i>
               <p>
                Point Of Sale
               </p>
