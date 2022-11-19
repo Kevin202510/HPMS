@@ -12,12 +12,8 @@
         <div class="image">
     <img src="../dist/img/avatar.png" class="img-square elevation-3"  alt="User Image">   </div>
         <div class="info">
-          <a href="#" class="d-block"><?php echo $POST['username'];?> </a>
+          <a href="#" class="d-block"><?php echo $_SESSION['fullname'];?> </a>
         </div>
-
-        <form method="post">
-          <input type="submit" name="logout" value="logout">
-        </form>
 
       </div>
 
@@ -67,6 +63,15 @@
               </p>
             </a>
           </li>
+
+          <br>
+          <div class="row justify-content-center">
+            <form method="post">
+            <input type="submit" class="nav-link" style="background-color:red; color:white;" name="logout" value="logout">
+          </form>
+          </div>
+
+          
 
 
         </ul>

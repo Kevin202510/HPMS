@@ -1,10 +1,9 @@
 <?php
 session_start();
 
-if (session_id())
-if ($_SESSION['login']){ 
-    header("Location:Admin/index.php");
-    die();
+if (!session_id()){
+      header("Location:Admin/index.php");
+      die();
 }
 
 include_once("Classes/CRUDAPI.php");
@@ -17,12 +16,16 @@ if(isset($_POST["loginmoto"])){
 
   $query = "SELECT * FROM `users` WHERE USERNAME='$USERNAME' AND PASSWORD='$PASSWORD'";
   $result = $crudapi->getData($query);
-
+  $fullname = "";
+  foreach ($result as $key => $data) {
+      $fullname = strtoupper($data["FNAME"]." ".$data["LNAME"]);
+  }
   // echo $result;
   if($result){
     if (!session_id())
           session_start();
           $_SESSION['logon'] = true;
+          $_SESSION['fullname'] = $fullname;
     header("location: Admin/index.php");
     die();
   }else{
