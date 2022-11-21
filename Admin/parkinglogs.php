@@ -1,6 +1,14 @@
   <!-- PHP FUNCTION CRUD START-->
   <?php 
   
+  // session_start();
+
+  // if (session_id())
+  // if ($_SESSION['logon']){ 
+  //     header("Location:Admin/index.php");
+  //     die();
+  // }
+
     include_once("../Classes/CRUDAPI.php");
     $crudapi = new CRUDAPI();
 
@@ -78,6 +86,7 @@
                   <th scope="col">PARKING TIME OUT</th>
                   <th scope="col">PAYMENT</th>
                   <th scope="col">STATUS</th>
+                  <th scope="col">ACTION</th>
                 </tr>
               </thead>
               <tbody>
@@ -103,6 +112,9 @@
                     <?php }else{?>
                     <td><p style="color:green;"><?php echo $val; ?></p></td>
                     <?php }?>
+                    
+                    <td> <a href="Admin/print-receipt.php?vid=<?php echo $row['ID'];?>"><button type="button" class="btn btn-sm btn-warning"> <i class="fa fa-print"></i></button>
+            </td>
                   </tr>
                 <?php $number++; } ?>
               </tbody>

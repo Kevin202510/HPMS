@@ -1,5 +1,13 @@
   <!-- PHP FUNCTION CRUD START-->
   <?php 
+
+session_start();
+
+if (session_id())
+if ($_SESSION['logon']){ 
+    header("Location:Admin/index.php");
+    die();
+}
   
     include_once("../Classes/CRUDAPI.php");
     $crudapi = new CRUDAPI();

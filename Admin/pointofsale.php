@@ -79,7 +79,7 @@
                   foreach ($result as $key => $data) {
                     if($data["PS_STATUS"]==0){
               ?>
-                <div class="card" style="width: 10rem; margin-right:15px;">
+                <div class="card" style="width: 10rem; margin-right:15px;background-:red;">
                     <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
                     <div class="card-body">
                         <h5 class="card-title"><?php echo $data["PARKING_NAME"] ?></h5>
@@ -92,7 +92,7 @@
                     </div>
                 </div>
             <?php }else{ ?>
-                <div class="card" style="width: 10rem; margin-right:15px; background-color:#f88585;">
+                <div class="card" style="width: 10rem; margin-right:15px; background-color:#fb8c29">
                     <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
                     <div class="card-body">
                         <h5 class="card-title"><?php echo $data["PARKING_NAME"] ?></h5>

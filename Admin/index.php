@@ -1,4 +1,10 @@
-<?php include("layouts/header.php");?>
+<?php 
+if (!session_id()) session_start();
+if (!$_SESSION['logon']){ 
+    header("Location:../index.php");
+    die();
+}
+include("layouts/header.php");?>
 <div class="wrapper">
   <?php include("layouts/navigationbar.php");?>
   <?php include("layouts/sidebar.php");?>
@@ -28,7 +34,7 @@
         <div class="row">
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-info">
+          <!--  <div class="small-box bg-info">
               <div class="inner">
                 <h3>150</h3>
 
@@ -39,11 +45,11 @@
               </div>
               <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
-          </div>
+          </div>-->
           <!-- ./col -->
-          <div class="col-lg-3 col-6">
+         <!-- <div class="col-lg-3 col-6">-->
             <!-- small box -->
-            <div class="small-box bg-success">
+           <!-- <div class="small-box bg-success">
               <div class="inner">
                 <h3>53<sup style="font-size: 20px"></sup></h3>
 
@@ -55,9 +61,9 @@
               <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
-          <div class="col-lg-3 col-6">
+          <div class="col-lg-3 col-6">-->
             <!-- small box -->
-            <div class="small-box bg-primary">
+           <!-- <div class="small-box bg-primary">
               <div class="inner">
                 <h3>53<sup style="font-size: 20px"></sup></h3>
 
@@ -69,9 +75,9 @@
               <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
-          <div class="col-lg-3 col-6">
+          <div class="col-lg-3 col-6">-->
             <!-- small box -->
-            <div class="small-box bg-info">
+           <!-- <div class="small-box bg-info">
               <div class="inner">
                 <h3>53<sup style="font-size: 20px"></sup></h3>
 
@@ -83,13 +89,13 @@
               <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
-        </div>
+        </div>-->
         <!-- /.row -->
         <!-- Main row -->
-        <div class="row">
+        <!--<div class="row">
       
      
-        </div>
+        </div>-->
         <!-- /.row (main row) -->
       </div><!-- /.container-fluid -->
     </section>

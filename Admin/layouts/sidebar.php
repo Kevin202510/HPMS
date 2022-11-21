@@ -12,8 +12,12 @@
         <div class="image">
     <img src="../dist/img/avatar.png" class="img-square elevation-3"  alt="User Image">   </div>
         <div class="info">
-          <a href="#" class="d-block">Fullname Example</a>
+          <a href="#" class="d-block"><?php echo $POST['username'];?> </a>
         </div>
+
+        <form method="post">
+          <input type="submit" name="logout" value="logout">
+        </form>
 
       </div>
 
@@ -42,7 +46,7 @@
             <a href="parkingslot.php" class="nav-link" id="pssidebtn">
               <i class="nav-icon fas fa-parking"></i>
               <p>
-                Parking Slot
+                Parking Slots
               </p>
             </a>
           </li>

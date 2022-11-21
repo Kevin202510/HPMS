@@ -1,4 +1,38 @@
+<?php
+session_start();
 
+if (session_id())
+if ($_SESSION['login']){ 
+    header("Location:Admin/index.php");
+    die();
+}
+
+include_once("Classes/CRUDAPI.php");
+$crudapi = new CRUDAPI();
+
+if(isset($_POST["loginmoto"])){
+
+  $USERNAME = $_POST["username"];
+  $PASSWORD = $_POST["password"];
+
+  $query = "SELECT * FROM `users` WHERE USERNAME='$USERNAME' AND PASSWORD='$PASSWORD'";
+  $result = $crudapi->getData($query);
+
+  // echo $result;
+  if($result){
+    if (!session_id())
+          session_start();
+          $_SESSION['logon'] = true;
+    header("location: Admin/index.php");
+    die();
+  }else{
+    echo "<script>alert('Login Failed!');</script>";  
+  }
+
+
+}
+
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,20 +41,21 @@
   <title>Vehicle Parking Management System </title>
 
   <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"> -->
   <!-- Font Awesome -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- icheck bootstrap -->
   <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
-<script type="text/javascript" src="http://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=4koXwNnpJ0Q-i2QAP2Zr59eq5fL95IqmZgEKOb1eyLjS4Oqui8PwE4XDMKghRCDJrEAeAch_zu0PPuWEKu2zqF2uyFcNVoLc3aTFQEjbI2HXl_RkwBjxrl7wOTy_Itjq" charset="UTF-8"></script></head>
+<!-- <script type="text/javascript" src="http://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=4koXwNnpJ0Q-i2QAP2Zr59eq5fL95IqmZgEKOb1eyLjS4Oqui8PwE4XDMKghRCDJrEAeAch_zu0PPuWEKu2zqF2uyFcNVoLc3aTFQEjbI2HXl_RkwBjxrl7wOTy_Itjq" charset="UTF-8"></script></head> -->
 <style type="text/css">
   body {
   background-image: url('dist/img/bg1.jpg');
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: 100% 100%;
+  
 }
 </style>
 <body class="hold-transition login-page" >
@@ -31,10 +66,10 @@
       <a href="index.php" class="h1"><b>Welcome</b></a>
     </div>
     <div class="card-body">
-      <button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#login"><i class="fa fa-lock"> LOGIN </i> </button><button type="button" class="btn btn-block btn-info btn-lg" data-toggle="modal" data-target="#register"><i class="fa fa-pen"> REGISTER</i></button>
+      <button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#login"><i class="fa fa-lock"> LOGIN </i> </button>
       <div class="modal fade" id="login">
                         <div class="modal-dialog modal-sm">
-                            <form action="admin/dashboard.php">
+                            <form method="post">
                           <div class="modal-content">
                             <div class="modal-header">
                               <h4 class="modal-title">LOGIN FORM</h4>
@@ -47,7 +82,7 @@
                                 <div class="row">
                                 <div class="col-12">
                                   <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="Enter Username ..">
+                                    <input type="text" class="form-control" name="username" placeholder="Enter Username ..">
                                     <div class="input-group-append">
                                       <div class="input-group-text">
                                         <span class="fas fa-user"></span>
@@ -57,7 +92,7 @@
                                 </div>
                                 <div class="col-12">
                                   <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="Enter Password ..">
+                                    <input type="text" class="form-control" name="password" placeholder="Enter Password ..">
                                     <div class="input-group-append">
                                       <div class="input-group-text">
                                         <span class="fas fa-lock"></span>
@@ -70,25 +105,25 @@
                           </div>
                             <div class="modal-footer justify-content-between">
                               <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                              <button type="submit" class="btn btn-primary"><i class="fa fa-unlock"></i> Login</button>
+                              <button type="submit" name="loginmoto" class="btn btn-primary"><i class="fa fa-unlock"></i> Login</button>
                             </div>
                           </div>
                           </form>
                           <!-- /.modal-content -->
                         </div>
                         <!-- /.modal-dialog -->
-                      </div>
+                     <!-- </div>
                           <div class="modal fade" id="register">
                         <div class="modal-dialog modal-lg">
-                       <form action="">
+                       <form action="login.php">
                           <div class="modal-content">
                             <div class="modal-header">
                               <h4 class="modal-title">Registration FORM</h4>
                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                               </button>
-                            </div>
-                            <div class="card card-primary">
+                            </div>-->
+                           <!-- <div class="card card-primary">
                               <div class="card-body">
                                 <div class="row">
                                <div class="col-4">
@@ -207,22 +242,7 @@
                                     </div>
                                   </div>
                                 </div>
-                                <div class="col-6">
-                                  <select class="form-control">
-                                    <option selected="">- Select Account Status - </option>
-                                    <option>Active</option>
-                                    <option>Inactive</option>
-                                  </select>
-                                </div>
-                                <div class="col-6">
-                                <div class="custom-file">
-                                  <input type="file" class="custom-file-input" id="customFile">
-                                  <label class="custom-file-label" for="customFile">Profile Picture</label>
-                                </div>
-                              </div>
-                                </div>
-                              </div>
-                          </div>
+                               
                             <div class="modal-footer justify-content-between">
                               <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
                               <button type="submit" class="btn btn-primary"><i class="fa fa-unlock"></i> Login</button>
@@ -231,7 +251,7 @@
                           </form>
     </div>
     </div>
-    </div>
+    </div>-->
     <!-- /.card-body -->
   </div>
   <!-- /.card -->
@@ -247,10 +267,7 @@
 <script src="plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
-<script>
-$(function () {
-  bsCustomFileInput.init();
-});
-</script>
+
+
 </body>
 </html>
