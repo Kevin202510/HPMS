@@ -12,7 +12,7 @@
         <div class="image">
     <img src="../dist/img/avatar.png" class="img-square elevation-3"  alt="User Image">   </div>
         <div class="info">
-          <a href="#" class="d-block"><?php echo $POST['username'];?> </a>
+          <a href="#" class="d-block"> <?php echo $_SESSION['$USERNAME']; ?></a>
         </div>
 
         <form method="post">
