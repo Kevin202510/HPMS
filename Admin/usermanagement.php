@@ -1,6 +1,13 @@
   <!-- PHP FUNCTION CRUD START-->
   <?php 
   
+  if (!session_id()) session_start();
+if (!$_SESSION['logon']){ 
+    echo "<script>alert('Unable To Access This Page Pls Login First!');</script>";
+    header("Location:../index.php");
+    die();
+}
+
     include_once("../Classes/CRUDAPI.php");
     $crudapi = new CRUDAPI();
 
@@ -47,7 +54,7 @@
 <div class="wrapper">
   <?php include("layouts/navigationbar.php");?>
   <?php include("layouts/sidebar.php");?>
-  <div class="content-wrapper">
+  <div class="content-wrapper" style="background:#D5D4D2;">
 
     <div class="content-header">
       <div class="container-fluid">
@@ -57,8 +64,8 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard</li>
+              <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+              <li class="breadcrumb-item active">User Management</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -101,8 +108,8 @@
                     <td><?php echo $data["USERNAME"] ?></td>
                     <td>
                       <div class="btn-group" role="group" aria-label="Basic example">
-                        <button type="button" data-id="<?php echo $data['USER_ID']; ?>" class="btn btn-primary" id="editbtn">EDIT</button>
-                        <button type="button" data-id="<?php echo $data['USER_ID']; ?>" class="btn btn-danger" id="deletebtn">DELETE</button>
+                        <button type="button" data-id="<?php echo $data['USER_ID']; ?>" class="btn btn-primary" style="background:#c4a35a; border:none;" id="editbtn">EDIT</button>
+                        <button type="button" data-id="<?php echo $data['USER_ID']; ?>" class="btn btn-danger" style="background:#234E57; border:none;" id="deletebtn">DELETE</button>
                       </div>
                     </td>
                   </tr>

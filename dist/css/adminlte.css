@@ -27,7 +27,7 @@
   --primary: #007bff;
   --secondary: #6c757d;
   --success: #28a745;
-  --info: #17a2b8;
+  --info: 26495c;
   --warning: #ffc107;
   --danger: #dc3545;
   --light: #f8f9fa;
@@ -5057,7 +5057,7 @@ input[type="button"].btn-block {
   padding: 0.5rem 0.75rem;
   margin-left: -1px;
   line-height: 1.25;
-  color: #007bff;
+  color:red;
   background-color: #fff;
   border: 1px solid #dee2e6;
 }
@@ -6774,7 +6774,7 @@ button.bg-success:focus {
 }
 
 .bg-info {
-  background-color: #17a2b8 !important;
+  background-color: red !important;
 }
 
 a.bg-info:hover, a.bg-info:focus,
@@ -10309,6 +10309,7 @@ body,
 }
 
 .wrapper .content-wrapper {
+  
   min-height: calc(100vh - calc(3.5rem + 1px) - calc(3.5rem + 1px));
 }
 
@@ -19359,6 +19360,7 @@ html.maximized-card {
 
 .small-box {
   border-radius: 0.25rem;
+  background-color: #26495c;
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.125), 0 1px 3px rgba(0, 0, 0, 0.2);
   display: block;
   margin-bottom: 20px;

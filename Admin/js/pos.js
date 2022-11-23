@@ -45,10 +45,15 @@ $(document).ready(function(){
                 $("#PARKING_TIME_OUT_PARKOUT").val(date.toLocaleString());
 
                 var res = Math.abs(date1 - date) / 1000;
-                var hours = Math.floor(res / 3600) % 24;     
-
-                $("#TOTAL_HR_PARKOUT").val(hours);
-                $("#BALANCE_PARKOUT").val(hours*30);
+                var hours = Math.floor(res / 3600) % 24;  
+                
+                if(hours==0){
+                    $("#TOTAL_HR_PARKOUT").val("0");
+                    $("#BALANCE_PARKOUT").val(30);
+                }else{
+                    $("#TOTAL_HR_PARKOUT").val(hours);
+                    $("#BALANCE_PARKOUT").val(hours*30);
+                }
 
                 $("#parkoutModal").modal("show");
             }else{

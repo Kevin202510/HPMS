@@ -43,7 +43,7 @@ if (!$_SESSION['logon']){
 <div class="wrapper">
   <?php include("layouts/navigationbar.php");?>
   <?php include("layouts/sidebar.php");?>
-  <div class="content-wrapper" style="background:#D5D4D2;">
+  <div class="content-wrapper">
 
     <div class="content-header">
       <div class="container-fluid">
@@ -89,7 +89,7 @@ if (!$_SESSION['logon']){
                     <th scope="row"><?php echo $number; ?></th>
                     <td><?php echo $data["PARKING_NAME"] ?></td>
                     <td><?php echo $data["DESCRIPTION"]; ?></td>
-                    <td ><?php
+                    <td><?php
                         $status = "Available"; 
                         if($data["PS_STATUS"]==1){
                           $status = "Not Available";
@@ -97,8 +97,8 @@ if (!$_SESSION['logon']){
                         echo $status ?></td>
                     <td>
                       <div class="btn-group" role="group" aria-label="Basic example">
-                        <button type="button" data-id="<?php echo $data['PS_ID']; ?>" class="btn btn-primary" style="background:#c4a35a; border:none;" id="editbtn">EDIT</button>
-                        <button type="button" data-id="<?php echo $data['PS_ID']; ?>" class="btn btn-danger" style="background:#234E57; border:none;" id="deletebtn">DELETE</button>
+                        <button type="button" data-id="<?php echo $data['PS_ID']; ?>" class="btn btn-primary" id="editbtn">EDIT</button>
+                        <button type="button" data-id="<?php echo $data['PS_ID']; ?>" class="btn btn-danger" id="deletebtn">DELETE</button>
                       </div>
                     </td>
                   </tr>

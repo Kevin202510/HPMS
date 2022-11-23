@@ -1,5 +1,12 @@
   <!-- PHP FUNCTION CRUD START-->
   <?php 
+
+if (!session_id()) session_start();
+if (!$_SESSION['logon']){ 
+    echo "<script>alert('Unable To Access This Page Pls Login First!');</script>";
+    header("Location:../index.php");
+    die();
+}
   
     include_once("../Classes/CRUDAPI.php");
     $crudapi = new CRUDAPI();
@@ -22,7 +29,8 @@
       $PARKING_SLOT_ID = $crudapi->escape_string($_POST['PARKING_SLOT_ID']);
       $PARKING_LOGS_ID = $crudapi->escape_string($_POST['PARKING_LOGS_ID']);
       $PARKING_TIME_OUT = date_format(date_create($_POST['PARKING_TIME_OUT']),"Y-m-d H:i:s");
-      $PAYMENT = $crudapi->escape_string($_POST['PAYMENT']);
+      $PAYMENT = $_POST['BALANCE_PARKOUT'];
+       
       $PL_STATUS = 0;
         
       $result = $crudapi->execute("UPDATE parking_logs SET PARKING_TIME_OUT='$PARKING_TIME_OUT',PAYMENT='$PAYMENT',PL_STATUS='$PL_STATUS' WHERE PL_ID = '$PARKING_LOGS_ID' ");
@@ -50,8 +58,8 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard</li>
+            <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+              <li class="breadcrumb-item active">Point Of Sale</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -79,7 +87,7 @@
                   foreach ($result as $key => $data) {
                     if($data["PS_STATUS"]==0){
               ?>
-                <div class="card" style="width: 10rem; margin-right:15px;background-:red;">
+                <div class="card" style="width: 10rem; margin-right:15px;">
                     <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
                     <div class="card-body">
                         <h5 class="card-title"><?php echo $data["PARKING_NAME"] ?></h5>
@@ -88,20 +96,20 @@
                         </div>
                     </div>
                     <div class="card-footer text-muted d-flex justify-content-center">
-                        <button type="button" class="btn btn-primary btn-sm" id="park" data-id="<?php echo $data["PS_ID"] ?>">Park</button>
+                        <button style="background-color:#c66b3d;border:none;" type="button" class="btn btn-primary btn-sm" id="park" data-id="<?php echo $data["PS_ID"] ?>">Park</button>
                     </div>
                 </div>
             <?php }else{ ?>
-                <div class="card" style="width: 10rem; margin-right:15px; background-color:#fb8c29">
+                <div class="card" style="width: 10rem; margin-right:15px; background-color:#c4a35a;">
                     <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
-                    <div class="card-body">
+                    <div style="color:white;"class="card-body">
                         <h5 class="card-title"><?php echo $data["PARKING_NAME"] ?></h5>
                         <div class="justify-content-center">
                           <p class="card-text"><?php echo $data["DESCRIPTION"] ?></p>
                         </div>
                     </div>
                     <div class="card-footer text-muted d-flex justify-content-center">
-                        <p>Not Available</p>
+                        <p style="color:white;">Not Available</p>
                     </div>
                 </div>
             <?php }$number++;}?>
@@ -206,7 +214,7 @@
                 </div>
                 <div class="form-group col-md-4">
                   <label>Parking Out</label>
-                  <input type="text" class="form-control" name="PARKING_TIME_OUT" id="PARKING_TIME_OUT_PARKOUT">
+                  <input type="text" class="form-control" name="PARKING_TIME_OUT" id="PARKING_TIME_OUT_PARKOUT" readonly="readonly" >
                 </div>
                 <div class="form-group col-md-4">
                   <label>Total Hours</label>
@@ -217,7 +225,7 @@
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label>Total Balance</label>
-                  <input type="number" class="form-control" id="BALANCE_PARKOUT" disabled>
+                  <input type="number" class="form-control" id="BALANCE_PARKOUT" name="BALANCE_PARKOUT" readonly="readonly" >
                 </div>
                 <div class="form-group col-md-6">
                   <label>Payment</label>

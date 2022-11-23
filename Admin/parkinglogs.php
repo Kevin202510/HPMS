@@ -1,13 +1,12 @@
   <!-- PHP FUNCTION CRUD START-->
   <?php 
   
-  // session_start();
-
-  // if (session_id())
-  // if ($_SESSION['logon']){ 
-  //     header("Location:Admin/index.php");
-  //     die();
-  // }
+  if (!session_id()) session_start();
+if (!$_SESSION['logon']){ 
+    echo "<script>alert('Unable To Access This Page Pls Login First!');</script>";
+    header("Location:../index.php");
+    die();
+}
 
     include_once("../Classes/CRUDAPI.php");
     $crudapi = new CRUDAPI();
@@ -50,7 +49,7 @@
 <div class="wrapper">
   <?php include("layouts/navigationbar.php");?>
   <?php include("layouts/sidebar.php");?>
-  <div class="content-wrapper">
+  <div class="content-wrapper" style="background:#D5D4D2;">
 
     <div class="content-header">
       <div class="container-fluid">
@@ -60,8 +59,8 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard</li>
+            <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+              <li class="breadcrumb-item active">Parking Logs</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -102,18 +101,25 @@
                     <td><?php echo $data["C_FNAME"]." ".$data["C_LNAME"] ?></td>
                     <td><?php echo $data["PLATE_NUMBER"] ?></td>
                     <td><?php echo date_format(date_create($data["PARKING_TIME"]),"M-d-y H:i:s A"); ?></td>
-                    <td><?php echo date_format(date_create($data["PARKING_TIME_OUT"]),"M-d-y H:i:s A") ?></td>
+                    <td><?php 
+                          if($data["PARKING_TIME_OUT"]===null){
+                            echo $data["PARKING_TIME_OUT"];
+                          }else{
+                            echo date_format(date_create($data["PARKING_TIME_OUT"]),"M-d-y H:i:s A");
+                          }
+                        ?>
+                    </td>
                     <td><?php echo $data["PAYMENT"] ?></td>
                     <?php 
                         $val = "Paid";
                         if($data["PL_STATUS"]==1){
                     ?>
-                    <td><p style="color:red;"><?php echo $val; ?></p></td>
+                    <td><p style="color:red;"><?php echo "Not Paid"; ?></p></td>
                     <?php }else{?>
                     <td><p style="color:green;"><?php echo $val; ?></p></td>
                     <?php }?>
+                    <td><a href="print-receipt.php?ID=<?php echo $number;?>">Print</a>
                     
-                    <td> <a href="Admin/print-receipt.php?vid=<?php echo $row['ID'];?>"><button type="button" class="btn btn-sm btn-warning"> <i class="fa fa-print"></i></button>
             </td>
                   </tr>
                 <?php $number++; } ?>
