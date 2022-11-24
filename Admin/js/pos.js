@@ -71,4 +71,45 @@ $(document).ready(function(){
         }
     });
 
+    $("#savemona").click(function(){
+
+        var date = new Date();
+
+        var platenumber = $("#PLATE_NUMBER").val();
+        var fullname = $("#C_FNAME").val()+" "+$("#C_LNAME").val();
+        var dateandtime = date.toLocaleString();
+        var prkingslot = $("#PARKING_NAME").val();
+
+        var text = "HOTEL PARKING MANAGEMENT SYSTEM"+"\n\n"+"Vehicle Plate Number:"+platenumber+"\n\n"+"Vehicle Owner:"+fullname+"\n\n"+"Date & Time:"+dateandtime+"\n\n"+"Parking Slot Number:"+prkingslot;
+
+        $.ajax({
+            type: "POST",
+            url: "posadd.php",
+            data: $("#formkoto").serializeArray(),
+            success: function(datas){
+                printText(text);
+                location.reload();
+            },
+          });
+
+    });
+
+    function printText(text) {
+        fetch("http://localhost:3000/api", {
+          // Adding method type
+          method: "POST",
+    
+          // Adding body or contents to send
+          body: JSON.stringify({
+            content: text,
+          }),
+    
+          // Adding headers to the request
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+        });
+      }
+    
+
 })

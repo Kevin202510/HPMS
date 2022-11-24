@@ -11,20 +11,7 @@ if (!$_SESSION['logon']){
     include_once("../Classes/CRUDAPI.php");
     $crudapi = new CRUDAPI();
 
-    if(isset($_POST['parkHere'])) {	
-
-      $C_FNAME = $crudapi->escape_string($_POST['C_FNAME']);
-      $C_LNAME = $crudapi->escape_string($_POST['C_LNAME']);
-      $PLATE_NUMBER = $crudapi->escape_string($_POST['PLATE_NUMBER']);
-      $PARKING_SLOT_ID = $crudapi->escape_string($_POST['PARKING_SLOT_ID']);
-        
-      $result = $crudapi->execute("INSERT INTO parking_logs(PARKING_SLOT_ID,C_FNAME,C_LNAME,PLATE_NUMBER) VALUES('$PARKING_SLOT_ID','$C_FNAME','$C_LNAME','$PLATE_NUMBER')");
-
-      $result = $crudapi->execute("UPDATE parking_slot SET PS_STATUS='1' WHERE PS_ID = '$PARKING_SLOT_ID' ");
-
-      echo '<script>alert("ADDED SUCCESS");</script>';
-      header("location: pointofsale.php");
-    }else if(isset($_POST['parkouthere'])) {	
+    if(isset($_POST['parkouthere'])) {	
 
       $PARKING_SLOT_ID = $crudapi->escape_string($_POST['PARKING_SLOT_ID']);
       $PARKING_LOGS_ID = $crudapi->escape_string($_POST['PARKING_LOGS_ID']);
@@ -131,7 +118,7 @@ if (!$_SESSION['logon']){
             </button>
           </div>
           <div class="modal-body">
-            <form method="POST">
+            <form method="POST" id="formkoto">
               <input type="hidden" name="PARKING_SLOT_ID" id="PARKING_SLOT_ID">
 
               <div class="form-row">
@@ -156,9 +143,11 @@ if (!$_SESSION['logon']){
                 </div>
               </div>
 
+              <input type="hidden" name="parkHere">
+
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" name="parkHere">Save changes</button>
+                <button type="button" id="savemona" class="btn btn-primary">Save changes</button>
               </div>
 
             </form>

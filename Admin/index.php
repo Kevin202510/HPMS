@@ -41,9 +41,9 @@ include("layouts/header.php");?>
               <div class="inner">
            <?php  
        $query="SELECT * FROM parking_slot WHERE PS_STATUS = 0";
-        $result = $crudapi->getData($query);
+        $result1 = $crudapi->getData($query);
          ?>
-         <h3 style="color: white;"><?php echo count($result); ?></h3>
+         <h3 style="color: white;"><?php echo count($result1); ?></h3>
                 <p style="color: white;">Available Parking Slot</p>
               </div>
               <div class="icon">
@@ -55,9 +55,13 @@ include("layouts/header.php");?>
           <!-- ./col -->
          <div class="col-lg-3 col-6">
             <!-- small box -->
+            <?php  
+            $query="SELECT * FROM parking_slot";
+              $result2 = $crudapi->getData($query);
+              ?>
            <div class="small-box " style="background: #c4a35a;" >
               <div class="inner">
-                <h3 style="color: white;">24<sup style="font-size: 20px"></sup></h3>
+                <h3 style="color: white;"><?php echo count($result2); ?><sup style="font-size: 20px"></sup></h3>
 
                 <p style="color: white;"> Parking Slot</p>
               </div>
